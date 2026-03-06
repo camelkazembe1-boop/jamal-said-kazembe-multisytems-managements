@@ -35,6 +35,24 @@ button:hover{
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
+    <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "folkloric-air-489411-f9.firebaseapp.com",
+  projectId: "folkloric-air-489411-f9",
+  storageBucket: "folkloric-air-489411-f9.appspot.com",
+  messagingSenderId: "418007285423",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.saveUser = saveUser;
 </head>
 
 <body>
@@ -84,9 +102,7 @@ function handleCredentialResponse(response){
 
     // Hide login menu
     document.getElementById("loginMenu").style.display = "none";
-
-    alert("Welcome " + data.name);
-
+saveUser(data.name,data.email);
 }
 
 function parseJwt(token){
@@ -117,6 +133,67 @@ function logout(){
     location.reload();
 }
 
+        async function cleanOldUsers(){
+
+const snapshot = await getDocs(collection(db,"users"));
+const now = Date.now();
+
+snapshot.forEach(async (docu)=>{
+
+const data = docu.data();
+const loginTime = data.loginTime?.toMillis?.() || Date.now();
+
+const hours = (now - loginTime)/(1000*60*60);
+
+if(hours > 120){
+await deleteDoc(doc(db,"users",docu.id));
+}
+
+});
+
+}
+
+async function generateRegNumber(){
+
+const snapshot = await getDocs(collection(db,"users"));
+
+let used = [];
+
+snapshot.forEach(doc=>{
+used.push(parseInt(doc.data().registration));
+});
+
+used.sort((a,b)=>a-b);
+
+let reg = 1;
+
+for(let i=0;i<used.length;i++){
+if(used[i] !== reg){
+break;
+}
+reg++;
+}
+
+return reg.toString().padStart(10,'0');
+
+}
+
+async function saveUser(name,email){
+
+await cleanOldUsers();
+
+const regNumber = await generateRegNumber();
+
+await addDoc(collection(db,"users"),{
+name:name,
+email:email,
+registration:regNumber,
+loginTime:new Date()
+});
+
+alert("Registration Number: "+regNumber);
+
+}
 </script>
 
 </body>
