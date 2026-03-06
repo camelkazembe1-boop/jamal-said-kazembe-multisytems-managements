@@ -2,56 +2,72 @@
 <html>
 <head>
 <title>My Website</title>
-
 <style>
 body{
-text-align:center;
+    text-align:center;
+    font-family:Arial;
 }
-
 h1{
-color:red;
+    color:red;
 }
-
 h2{
-color:green;
+    color:green;
+}
+#logoutBtn{
+    background:red;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
 }
 </style>
-
+<!-- Google Sign-In Script -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
-
 <body>
-
 <h1>JAMAL SAID KAZEMBE</h1>
 <h2>MULTISYSTEM MANAGEMENT</h2>
-
 <br><br>
-
-<button id="registerBtn" onclick="registerUser()" style="background:purple;color:white;padding:10px 20px;border:none;border-radius:5px;font-size:16px;">
-Register
-</button>
-
+<!-- Google Login -->
+<div id="loginArea">
+<div id="g_id_onload"
+     data-client_id="YOUR_GOOGLE_CLIENT_ID"
+     data-callback="handleCredentialResponse"
+     data-auto_prompt="false">
+</div>
+<div class="g_id_signin"
+     data-type="standard"
+     data-size="large"
+     data-theme="outline"
+     data-text="sign_in_with"
+     data-shape="rectangular">
+</div>
+</div>
+<br>
+<button id="logoutBtn" style="display:none;" onclick="logoutUser()">Logout</button>
 <script>
-
-function registerUser(){
-
-let choice = confirm("Login using Google?\n\nPress OK for Google Login\nPress Cancel to Exit");
-
-if(choice){
+// When user logs in successfully
+function handleCredentialResponse(response){
 localStorage.setItem("registered","yes");
-window.location.href="https://accounts.google.com/";
-
-}else{
-
-alert("You returned to the system");
-
+alert("Login successful!");
+document.getElementById("loginArea").style.display="none";
+document.getElementById("logoutBtn").style.display="inline-block";
 }
-
+// Logout function
+function logoutUser(){
+localStorage.removeItem("registered");
+alert("You logged out");
+location.reload();
 }
-  if(localStorage.getItem("registered")=="yes"){
-document.getElementById("registerBtn").style.display="none";
+// Check if already logged in
+window.onload=function(){
+if(localStorage.getItem("registered")=="yes"){
+document.getElementById("loginArea").style.display="none";
+document.getElementById("logoutBtn").style.display="inline-block";
 }
-
+}
 </script>
-
 </body>
 </html>
