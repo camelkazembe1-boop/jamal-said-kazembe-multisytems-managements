@@ -16,10 +16,34 @@ color: green;
 }
 </style>
 </head>
+  <script>
+
+function registerUser(){
+
+let choice = confirm("Login using Google?\n\nPress OK for Google Login\nPress Cancel to Exit");
+
+if(choice){
+
+window.location.href="https://accounts.google.com/signup";
+
+}else{
+
+alert("You returned to the system");
+
+}
+
+}
+
+</script>
 <body>
 
 <h1>JAMAL SAID KAZEMBE</h1>
 <h2>MULTISYSTEM MANAGEMENT</h2>
+  
+<br><br>
 
+<button onclick="registerUser()" style="background:purple;color:white;padding:10px 20px;border:none;border-radius:5px;font-size:16px;">
+Register
+</button>
 </body>
 </html>
