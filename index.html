@@ -59,7 +59,13 @@ data-callback="handleCredentialResponse">
 
 <!-- PLAN SELECTION -->
 
-<div id="planMenu" style="display:none; margin-top:20px;">
+<div id="planMenu" style="
+display:none;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+">
 
 <h3>Choose Account Type</h3>
 
@@ -106,8 +112,8 @@ document.getElementById("loginMenu").style.display="none";
 currentName=data.name;
 currentEmail=data.email;
 
-document.getElementById("planMenu").style.display="block";
-
+  document.getElementById("userPanel").style.display="block";
+document.getElementById("userName").innerText="Welcome "+currentName;
 }
 function choosePlan(plan){
 
