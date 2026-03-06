@@ -46,14 +46,24 @@ h2{
 </div>
 </div>
 <br>
+    <br><br>
+
+<button id="freeBtn" style="display:none;background:green;color:white;padding:10px 20px;border:none;border-radius:5px;font-size:16px;" onclick="startFree()">
+FREE GRANTED
+</button>
+
+<br><br>
+
+<div id="countdown"></div>
 <button id="logoutBtn" style="display:none;" onclick="logoutUser()">Logout</button>
 <script>
 // When user logs in successfully
 function handleCredentialResponse(response){
 localStorage.setItem("registered","yes");
 alert("Login successful!");
-document.getElementById("loginArea").style.display="none";
+    document.getElementById("loginArea").style.display="none";
 document.getElementById("logoutBtn").style.display="inline-block";
+document.getElementById("freeBtn").style.display="inline-block";
 }
 // Logout function
 function logoutUser(){
@@ -66,7 +76,37 @@ window.onload=function(){
 if(localStorage.getItem("registered")=="yes"){
 document.getElementById("loginArea").style.display="none";
 document.getElementById("logoutBtn").style.display="inline-block";
+document.getElementById("freeBtn").style.display="inline-block";
 }
+}
+    function startFree(){
+
+let seconds = 180;
+
+document.getElementById("freeBtn").disabled = true;
+
+let timer = setInterval(function(){
+
+seconds--;
+
+document.getElementById("countdown").innerHTML =
+"Free session: " + seconds + " seconds";
+
+if(seconds <= 0){
+
+clearInterval(timer);
+
+let waitTime = Date.now() + (24*3600*1000);
+
+localStorage.setItem("waitTime", waitTime);
+
+document.getElementById("countdown").innerHTML =
+"Free finished. Wait 24 hours.";
+
+}
+
+},1000);
+
 }
 </script>
 </body>
