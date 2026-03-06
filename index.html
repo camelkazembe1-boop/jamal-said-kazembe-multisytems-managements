@@ -65,6 +65,15 @@ data-callback="handleCredentialResponse">
 <button onclick="choosePlan('free')" style="background:purple;">Free</button>
 
 </div>
+  <div id="systemMenu" style="display:none; margin-top:20px;">
+
+<h3>System Menu</h3>
+
+<button onclick="businessMenu()">Business</button>
+
+<button onclick="exitSystem()">Exit</button>
+
+</div>
 
 
 <script>
@@ -97,13 +106,16 @@ currentEmail=data.email;
 document.getElementById("planMenu").style.display="block";
 
 }
-
 function choosePlan(plan){
 
 currentPlan=plan;
 
 document.getElementById("planMenu").style.display="none";
 
+/* SHOW SYSTEM MENU */
+document.getElementById("systemMenu").style.display="block";
+
+/* SAVE USER TO CLOUD */
 saveUser(currentName,currentEmail,currentPlan);
 
 }
