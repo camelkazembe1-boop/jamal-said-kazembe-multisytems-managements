@@ -33,7 +33,7 @@ h2{
 <!-- Google Login -->
 <div id="loginArea">
 <div id="g_id_onload"
-     data-client_id="YOUR_GOOGLE_CLIENT_ID"
+    data-client_id="418007285423-aubqi40jmhuk6prn0raj4ie3q5500aou.apps.googleusercontent.com"
      data-callback="handleCredentialResponse"
      data-auto_prompt="false">
 </div>
@@ -73,11 +73,31 @@ location.reload();
 }
 // Check if already logged in
 window.onload=function(){
+
 if(localStorage.getItem("registered")=="yes"){
+
 document.getElementById("loginArea").style.display="none";
 document.getElementById("logoutBtn").style.display="inline-block";
+
+let waitTime = localStorage.getItem("waitTime");
+
+if(waitTime && Date.now() < waitTime){
+
+let remaining = Math.floor((waitTime - Date.now())/1000);
+
+document.getElementById("countdown").innerHTML =
+"Wait " + remaining + " seconds for next free";
+
+document.getElementById("freeBtn").style.display="none";
+
+}else{
+
 document.getElementById("freeBtn").style.display="inline-block";
+
 }
+
+}
+
 }
     function startFree(){
 
