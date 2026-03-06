@@ -76,15 +76,22 @@ function handleCredentialResponse(response) {
 
     const data = parseJwt(response.credential);
 
+    // Save login state
     localStorage.setItem("userLoggedIn","true");
 
+    // Hide login button
     document.getElementById("loginBtn").style.display = "none";
+
+    // Hide login menu
     document.getElementById("loginMenu").style.display = "none";
 
     console.log("User Name:", data.name);
     console.log("User Email:", data.email);
 
     alert("Welcome " + data.name);
+
+    // Return user to system page
+    window.location.reload();
 }
 
 function parseJwt (token) {
@@ -98,10 +105,19 @@ function parseJwt (token) {
 }
 
 window.onload = function(){
+
     if(localStorage.getItem("userLoggedIn") === "true"){
+
+        // hide login button
         document.getElementById("loginBtn").style.display = "none";
+
+        // ensure login menu stays hidden
+        document.getElementById("loginMenu").style.display = "none";
+
     }
+
 }
+
 
 </script>
 
