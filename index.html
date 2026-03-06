@@ -32,7 +32,20 @@ button:hover{
 <body>
 <h1>JAMAL SAID KAZEMBE</h1>
 <h2>MULTISYSTEM MANAGEMENT</h2>
+<button onclick="openLogin()">Login</button>
+    <div id="loginMenu" style="display:none; margin-top:20px;">
+    <button>Login with Google (Coming Later)</button>
+    <br><br>
+    <button onclick="goBack()">Back</button>
+</div>
 <script>
+    function openLogin(){
+    document.getElementById("loginMenu").style.display = "block";
+}
+
+function goBack(){
+    document.getElementById("loginMenu").style.display = "none";
+}
 function startSystem(){
     alert("System Started Successfully");
 }
