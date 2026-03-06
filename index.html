@@ -5,26 +5,26 @@
 
 <style>
 body{
-    text-align:center;
-    font-family:Arial;
-    background-color:#f4f4f4;
+text-align:center;
+font-family:Arial;
+background-color:#f4f4f4;
 }
 
-h1{ color:blue; }
-h2{ color:green; }
+h1{color:blue;}
+h2{color:green;}
 
 button{
-    padding:10px 20px;
-    font-size:16px;
-    border:none;
-    border-radius:5px;
-    background-color:blue;
-    color:white;
-    cursor:pointer;
+padding:10px 20px;
+font-size:16px;
+border:none;
+border-radius:5px;
+background-color:blue;
+color:white;
+cursor:pointer;
 }
 
 button:hover{
-    background-color:darkblue;
+background-color:darkblue;
 }
 </style>
 
@@ -43,8 +43,8 @@ button:hover{
 <div id="loginMenu" style="display:none; margin-top:20px;">
 
 <div id="g_id_onload"
-     data-client_id="418007285423-tm2phevgs4tqjdd35m5jq3t0mkd7putl.apps.googleusercontent.com"
-     data-callback="handleCredentialResponse">
+data-client_id="418007285423-tm2phevgs4tqjdd35m5jq3t0mkd7putl.apps.googleusercontent.com"
+data-callback="handleCredentialResponse">
 </div>
 
 <div class="g_id_signin" data-type="standard"></div>
@@ -53,50 +53,61 @@ button:hover{
 <button onclick="goBack()">Back</button>
 
 </div>
-    <div id="planMenu" style="display:none; margin-top:20px;">
+
+<!-- PLAN SELECTION -->
+
+<div id="planMenu" style="display:none; margin-top:20px;">
 
 <h3>Choose Account Type</h3>
 
-<button onclick="choosePlan('payment')" 
-style="background:green;">Payment</button>
+<button onclick="choosePlan('payment')" style="background:green;">Payment</button>
 
-<button onclick="choosePlan('free')" 
-style="background:purple;">Free</button>
+<button onclick="choosePlan('free')" style="background:purple;">Free</button>
 
 </div>
-let currentName="";
-let currentEmail="";
+
+
 <script>
 
+let currentName="";
+let currentEmail="";
+let currentPlan="";
+
 function openLogin(){
-    document.getElementById("loginMenu").style.display="block";
+document.getElementById("loginMenu").style.display="block";
 }
 
 function goBack(){
-    document.getElementById("loginMenu").style.display="none";
+document.getElementById("loginMenu").style.display="none";
 }
 
 function handleCredentialResponse(response){
 
-    const data = parseJwt(response.credential);
+const data = parseJwt(response.credential);
 
-    localStorage.setItem("userLoggedIn","true");
+localStorage.setItem("userLoggedIn","true");
 
-    document.getElementById("loginBtn").style.display="none";
-    document.getElementById("logoutBtn").style.display="inline-block";
-    document.getElementById("loginMenu").style.display="none";
-currentName = data.name;
-currentEmail = data.email;
+document.getElementById("loginBtn").style.display="none";
+document.getElementById("logoutBtn").style.display="inline-block";
+document.getElementById("loginMenu").style.display="none";
+
+currentName=data.name;
+currentEmail=data.email;
 
 document.getElementById("planMenu").style.display="block";
+
 }
+
 function choosePlan(plan){
+
+currentPlan=plan;
 
 document.getElementById("planMenu").style.display="none";
 
-saveUser(currentName,currentEmail,plan);
+saveUser(currentName,currentEmail,currentPlan);
 
 }
+
 function parseJwt(token){
 
 var base64Url = token.split('.')[1];
@@ -130,11 +141,12 @@ location.reload();
 
 
 <!-- FIREBASE CLOUD DATABASE -->
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import { 
+import {
 getFirestore,
 collection,
 addDoc,
@@ -144,40 +156,38 @@ doc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
-authDomain: "folkloric-air-489411-f9.firebaseapp.com",
-projectId: "folkloric-air-489411-f9",
-storageBucket: "folkloric-air-489411-f9.appspot.com",
-messagingSenderId: "418007285423",
-appId: "YOUR_APP_ID"
+const firebaseConfig={
+apiKey:"YOUR_API_KEY",
+authDomain:"folkloric-air-489411-f9.firebaseapp.com",
+projectId:"folkloric-air-489411-f9",
+storageBucket:"folkloric-air-489411-f9.appspot.com",
+messagingSenderId:"418007285423",
+appId:"YOUR_APP_ID"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
 
-window.saveUser = saveUser;
+window.saveUser=saveUser;
 
 
 /* DELETE USERS AFTER 120 HOURS */
 
 async function cleanOldUsers(){
 
-const snapshot = await getDocs(collection(db,"users"));
-const now = Date.now();
+const snapshot=await getDocs(collection(db,"users"));
+const now=Date.now();
 
 snapshot.forEach(async (docu)=>{
 
-const data = docu.data();
+const data=docu.data();
 
-const loginTime = data.loginTime?.toMillis?.() || Date.now();
+const loginTime=data.loginTime?.toMillis?.()||Date.now();
 
-const hours = (now-loginTime)/(1000*60*60);
+const hours=(now-loginTime)/(1000*60*60);
 
 if(hours>120){
-
 await deleteDoc(doc(db,"users",docu.id));
-
 }
 
 });
@@ -185,18 +195,16 @@ await deleteDoc(doc(db,"users",docu.id));
 }
 
 
-
 /* GENERATE REG NUMBER */
-async function saveUser(name,email,plan){
 
-const snapshot = await getDocs(collection(db,"users"));
+async function generateRegNumber(){
+
+const snapshot=await getDocs(collection(db,"users"));
 
 let used=[];
 
 snapshot.forEach(docu=>{
-
 used.push(parseInt(docu.data().registration));
-
 });
 
 used.sort((a,b)=>a-b);
@@ -218,14 +226,14 @@ return reg.toString().padStart(10,'0');
 }
 
 
-
 /* SAVE USER */
 
-async function saveUser(name,email){
+async function saveUser(name,email,plan){
 
 await cleanOldUsers();
 
-const regNumber = await generateRegNumber();
+const regNumber=await generateRegNumber();
+
 await addDoc(collection(db,"users"),{
 
 name:name,
