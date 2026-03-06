@@ -62,6 +62,7 @@ button:hover{
 
 function openLogin(){
     document.getElementById("loginMenu").style.display = "block";
+    <button onclick="logout()">Logout</button>
 }
 
 function goBack(){
@@ -106,7 +107,19 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 });
-
+    <script id="checkLogin">
+if(localStorage.getItem("userLoggedIn") === "true"){
+    window.onload = function(){
+        var btn = document.getElementById("loginBtn");
+        if(btn){
+            btn.style.display = "none";
+        }
+    }
+}
+    function logout(){
+    localStorage.removeItem("userLoggedIn");
+    location.reload();
+}
 </script>
 
 </body>
