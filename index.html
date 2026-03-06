@@ -53,7 +53,19 @@ button:hover{
 <button onclick="goBack()">Back</button>
 
 </div>
+    <div id="planMenu" style="display:none; margin-top:20px;">
 
+<h3>Choose Account Type</h3>
+
+<button onclick="choosePlan('payment')" 
+style="background:green;">Payment</button>
+
+<button onclick="choosePlan('free')" 
+style="background:purple;">Free</button>
+
+</div>
+let currentName="";
+let currentEmail="";
 <script>
 
 function openLogin(){
@@ -73,11 +85,18 @@ function handleCredentialResponse(response){
     document.getElementById("loginBtn").style.display="none";
     document.getElementById("logoutBtn").style.display="inline-block";
     document.getElementById("loginMenu").style.display="none";
+currentName = data.name;
+currentEmail = data.email;
 
-    saveUser(data.name,data.email);
+document.getElementById("planMenu").style.display="block";
+}
+function choosePlan(plan){
+
+document.getElementById("planMenu").style.display="none";
+
+saveUser(currentName,currentEmail,plan);
 
 }
-
 function parseJwt(token){
 
 var base64Url = token.split('.')[1];
@@ -168,8 +187,7 @@ await deleteDoc(doc(db,"users",docu.id));
 
 
 /* GENERATE REG NUMBER */
-
-async function generateRegNumber(){
+async function saveUser(name,email,plan){
 
 const snapshot = await getDocs(collection(db,"users"));
 
@@ -208,11 +226,11 @@ async function saveUser(name,email){
 await cleanOldUsers();
 
 const regNumber = await generateRegNumber();
-
 await addDoc(collection(db,"users"),{
 
 name:name,
 email:email,
+plan:plan,
 registration:regNumber,
 loginTime:new Date()
 
