@@ -2,15 +2,18 @@
 <html>
 <head>
 <title>JAMAL SAID KAZEMBE MULTISYSTEM MANAGEMENT</title>
+
 <style>
 body{
     text-align:center;
     font-family:Arial;
     background-color:#f4f4f4;
 }
+
 h1{
     color:blue;
 }
+
 h2{
     color:green;
 }
@@ -24,38 +27,31 @@ button{
     color:white;
     cursor:pointer;
 }
+
 button:hover{
     background-color:darkblue;
 }
 </style>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 </head>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <body>
+
 <h1>JAMAL SAID KAZEMBE</h1>
 <h2>MULTISYSTEM MANAGEMENT</h2>
-<button onclick="openLogin()">Login</button>
-    <div id="loginMenu" style="display:none; margin-top:20px;">
-    <button>Login with Google (Coming Later)</button>
-    <br><br>
-        <div id="loginMenu" style="display:none; margin-top:20px;">
-    <button>Login with Google (Coming Later)</button>
-    <br><br>
-    <button onclick="goBack()">Back</button>
-</div>
-    <button onclick="goBack()">Back</button>
-</div>
-<script>
-    function openLogin(){
-    document.getElementById("loginMenu").style.display = "block";
-}
 
-function goBack(){
-    document.getElementById("loginMenu").style.display = "none";
-}
-function startSystem(){
-    alert("System Started Successfully");
-}
-</script>
+<button onclick="openLogin()">Login</button>
+
+<div id="loginMenu" style="display:none; margin-top:20px;">
+    <button>Login with Google (Coming Later)</button>
+    <br><br>
+    <button onclick="goBack()">Back</button>
+</div>
+
+<script>
+
 function openLogin(){
     document.getElementById("loginMenu").style.display = "block";
 }
@@ -63,5 +59,12 @@ function openLogin(){
 function goBack(){
     document.getElementById("loginMenu").style.display = "none";
 }
+
+function startSystem(){
+    alert("System Started Successfully");
+}
+
+</script>
+
 </body>
 </html>
