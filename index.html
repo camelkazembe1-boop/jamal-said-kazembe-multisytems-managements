@@ -26,7 +26,7 @@ color:green;
 
 <br><br>
 
-<button onclick="registerUser()" style="background:purple;color:white;padding:10px 20px;border:none;border-radius:5px;font-size:16px;">
+<button id="registerBtn" onclick="registerUser()" style="background:purple;color:white;padding:10px 20px;border:none;border-radius:5px;font-size:16px;">
 Register
 </button>
 
@@ -37,7 +37,7 @@ function registerUser(){
 let choice = confirm("Login using Google?\n\nPress OK for Google Login\nPress Cancel to Exit");
 
 if(choice){
-
+localStorage.setItem("registered","yes");
 window.location.href="https://accounts.google.com/";
 
 }else{
@@ -46,6 +46,9 @@ alert("You returned to the system");
 
 }
 
+}
+  if(localStorage.getItem("registered")=="yes"){
+document.getElementById("registerBtn").style.display="none";
 }
 
 </script>
