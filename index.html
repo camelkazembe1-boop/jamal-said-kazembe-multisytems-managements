@@ -43,6 +43,7 @@ button:hover{
 <h2>MULTISYSTEM MANAGEMENT</h2>
 
 <button id="loginBtn" onclick="openLogin()">Login</button>
+<button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
 
 <div id="loginMenu" style="display:none; margin-top:20px;">
 
@@ -62,7 +63,6 @@ button:hover{
 
 function openLogin(){
     document.getElementById("loginMenu").style.display = "block";
-    <button onclick="logout()">Logout</button>
 }
 
 function goBack(){
@@ -78,6 +78,9 @@ function handleCredentialResponse(response){
 
     // Hide login button
     document.getElementById("loginBtn").style.display = "none";
+
+    // Show logout button
+    document.getElementById("logoutBtn").style.display = "inline-block";
 
     // Hide login menu
     document.getElementById("loginMenu").style.display = "none";
@@ -104,22 +107,16 @@ document.addEventListener("DOMContentLoaded", function(){
 
     if(localStorage.getItem("userLoggedIn") === "true"){
         document.getElementById("loginBtn").style.display = "none";
+        document.getElementById("logoutBtn").style.display = "inline-block";
     }
 
 });
-    <script id="checkLogin">
-if(localStorage.getItem("userLoggedIn") === "true"){
-    window.onload = function(){
-        var btn = document.getElementById("loginBtn");
-        if(btn){
-            btn.style.display = "none";
-        }
-    }
-}
-    function logout(){
+
+function logout(){
     localStorage.removeItem("userLoggedIn");
     location.reload();
 }
+
 </script>
 
 </body>
