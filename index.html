@@ -58,9 +58,7 @@ FREE GRANTED
 
 <br><br>
 
-<div id="countdown"></div>
-    <div id="paymentBox" style="display:none;border:1px solid #ccc;padding:20px;width:300px;margin:auto;border-radius:10px;">
-        
+<div id="paymentOptions" style="display:none;border:1px solid #ccc;padding:20px;width:300px;margin:auto;border-radius:10px;">
 <div style="text-align:center;">
 
 <p style="color:blue;"><b>CRDB</b></p>
@@ -181,16 +179,26 @@ document.getElementById("countdown").innerHTML =
 },1000);
 
 }
-    function showPayment(){
+function showPayment(){
 
-closeAllPages();
+document.getElementById("freeBtn").style.display="none";
+document.getElementById("payBtn").style.display="none";
 
-document.getElementById("paymentBox").style.display="block";
+document.getElementById("paymentOptions").style.display="block";
+
+// hide main page parts
+document.getElementById("freeBtn").style.display="none";
+document.getElementById("payBtn").style.display="none";
+document.getElementById("countdown").style.display="none";
 
 }
- function cancelPayment(){
+    function cancelPayment(){
 
-closeAllPages();
+document.getElementById("paymentBox").style.display="none";
+
+document.getElementById("freeBtn").style.display="inline-block";
+document.getElementById("payBtn").style.display="inline-block";
+document.getElementById("countdown").style.display="block";
 
 }
 function copyMessage(){
@@ -202,6 +210,23 @@ navigator.clipboard.writeText(message);
 alert("Message copied");
 
 }
+    <div id="copyPage" style="display:none;border:1px solid #ccc;padding:20px;width:300px;margin:auto;border-radius:10px;">
+
+<h3>Write Payment Message</h3>
+
+<textarea id="userMessage" rows="4" style="width:90%;"></textarea>
+
+<br><br>
+
+<button onclick="submitMessage()" style="background:black;color:white;padding:8px 15px;border:none;border-radius:5px;">
+Submit
+</button>
+
+<button onclick="backToPayment()" style="background:gray;color:white;padding:8px 15px;border:none;border-radius:5px;">
+Back
+</button>
+
+</div>
     function uploadPhoto(){
 
 document.getElementById("photoInput").click();
