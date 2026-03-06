@@ -2,21 +2,35 @@
 <html>
 <head>
 <title>My Website</title>
-  <style>
+
+<style>
 body{
-text-align: center;
+text-align:center;
 }
 
 h1{
-color: red;
+color:red;
 }
 
 h2{
-color: green;
+color:green;
 }
 </style>
+
 </head>
-  <script>
+
+<body>
+
+<h1>JAMAL SAID KAZEMBE</h1>
+<h2>MULTISYSTEM MANAGEMENT</h2>
+
+<br><br>
+
+<button onclick="registerUser()" style="background:purple;color:white;padding:10px 20px;border:none;border-radius:5px;font-size:16px;">
+Register
+</button>
+
+<script>
 
 function registerUser(){
 
@@ -24,7 +38,7 @@ let choice = confirm("Login using Google?\n\nPress OK for Google Login\nPress Ca
 
 if(choice){
 
-window.location.href="https://accounts.google.com/signup";
+window.location.href="https://accounts.google.com/";
 
 }else{
 
@@ -35,15 +49,6 @@ alert("You returned to the system");
 }
 
 </script>
-<body>
 
-<h1>JAMAL SAID KAZEMBE</h1>
-<h2>MULTISYSTEM MANAGEMENT</h2>
-  
-<br><br>
-
-<button onclick="registerUser()" style="background:purple;color:white;padding:10px 20px;border:none;border-radius:5px;font-size:16px;">
-Register
-</button>
 </body>
 </html>
