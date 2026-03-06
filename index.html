@@ -72,7 +72,13 @@ FREE GRANTED
 <p style="color:red;">+255 655 510 714</p>
 
 <p style="color:purple;"><b>Jamaly Saidi Kazemb</b></p>
+<br>
 
+<textarea id="paymentMessage"
+placeholder="Write your payment message here..."
+style="width:90%;height:80px;padding:10px;border-radius:5px;border:1px solid #ccc;"></textarea>
+
+<br><br>
 </div>
         
 <button onclick="copyMessage()" style="background:red;color:white;padding:8px 15px;border:none;border-radius:5px;">
@@ -171,17 +177,19 @@ document.getElementById("countdown").innerHTML =
 }
     function showPayment(){
 
+closeAllPages();
+
 document.getElementById("paymentBox").style.display="block";
 
 }
-    function cancelPayment(){
-document.getElementById("paymentBox").style.display="none";
-}
+ function cancelPayment(){
 
+closeAllPages();
+
+}
 function copyMessage(){
 
-let message =
-"0152001GN6K00\nMix by Yas\n+255 655 510 714";
+let message = document.getElementById("paymentMessage").value;
 
 navigator.clipboard.writeText(message);
 
@@ -202,6 +210,11 @@ document.getElementById("submitPhoto").style.display="inline-block";
 function submitPhoto(){
 
 alert("Photo submitted. Waiting for approval.");
+
+}
+    function closeAllPages(){
+
+document.getElementById("paymentBox").style.display="none";
 
 }
 
